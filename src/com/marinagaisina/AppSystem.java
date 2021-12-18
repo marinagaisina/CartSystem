@@ -1,6 +1,9 @@
 package com.marinagaisina;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.Scanner;
 
 public class AppSystem extends TheSystem {
     AppSystem() throws IOException {
@@ -9,7 +12,11 @@ public class AppSystem extends TheSystem {
 
     @Override
     public void display() {
-        // Your code here
+        System.out.println("AppSystem Inventory:");
+        System.out.format("%-20s %-20s %-10s %10s\n", "Name", "Description", "Price", "Available Quantity");
+        for (String name : this.getItemCollection().keySet()) {
+            System.out.format("%-20s %-20s %-10s %-10s\n", name, this.getItemCollection().get(name).getItemDesc(), this.getItemCollection().get(name).getItemPrice(), this.getItemCollection().get(name).getAvailableQuantity());
+        }
     }
 
     @Override      // this overwrites the parents class add method

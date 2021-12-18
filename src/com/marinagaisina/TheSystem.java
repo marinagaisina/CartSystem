@@ -16,8 +16,10 @@ private Map<String,Item> itemCollection;    //final??
             File readInFile = new File("sample.txt");
             Scanner scanner = new Scanner(readInFile);
             while (scanner.hasNextLine()) {
-                String[] itemInfo = scanner.nextLine().split("\\s+");
+               // scanner.useDelimiter(" {2}");
+                String[] itemInfo = scanner.nextLine().split(" {2}");
                 Item item = new Item(itemInfo[0], itemInfo[1], Double.parseDouble(itemInfo[2]), Integer.parseInt(itemInfo[3]));
+                item.setQuantity(1);
                 this.getItemCollection().put(item.getItemName(), item);
             }
         }
@@ -39,12 +41,17 @@ private Map<String,Item> itemCollection;    //final??
         if (item == null) {
             return false;
         }
+        if (this.getItemCollection().size() == 0) {
+            this.getItemCollection().put(item.getItemName(), item);
+            return true;
+        }
         for (String name: this.getItemCollection().keySet()) {
             if (name.equals(item.getItemName())) {
                 Item foundItem = this.getItemCollection().get(name);
                 foundItem.setQuantity(foundItem.getQuantity()+1);
             } else {
-                itemCollection.put(item.getItemName(), item);
+                item.setQuantity(1);
+                this.getItemCollection().put(item.getItemName(), item);
             }
             return true;
         }
