@@ -7,7 +7,7 @@ import java.util.Scanner;
 import static java.util.Map.copyOf;
 
 public abstract class TheSystem {
-private Map<String,Item> itemCollection;    //final??
+private HashMap<String,Item> itemCollection;    //final?
 
     TheSystem() throws IOException {
         this.itemCollection = new HashMap<>();
@@ -26,7 +26,7 @@ private Map<String,Item> itemCollection;    //final??
     }
 
     public HashMap<String, Item> getItemCollection(){
-        return (HashMap<String, Item>) this.itemCollection;
+        return this.itemCollection;
     }
 
     public Boolean checkAvailability(Item item) {
@@ -45,12 +45,11 @@ private Map<String,Item> itemCollection;    //final??
             this.getItemCollection().put(item.getItemName(), item);
             return true;
         }
-        for (String name: this.getItemCollection().keySet()) {
+        for (String name : this.getItemCollection().keySet()) {
             if (name.equals(item.getItemName())) {
                 Item foundItem = this.getItemCollection().get(name);
                 foundItem.setQuantity(foundItem.getQuantity()+1);
             } else {
-                item.setQuantity(1);
                 this.getItemCollection().put(item.getItemName(), item);
             }
             return true;
@@ -61,7 +60,8 @@ private Map<String,Item> itemCollection;    //final??
     public Item remove(String itemName) {
         for (String name : this.getItemCollection().keySet()) {
             if (name.equals(itemName)) {
-                return this.getItemCollection().remove(name);
+                Item removeItem = this.getItemCollection().remove(name);
+                return removeItem;
             }
         }
         return null;

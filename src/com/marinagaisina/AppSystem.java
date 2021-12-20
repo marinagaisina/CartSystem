@@ -13,9 +13,10 @@ public class AppSystem extends TheSystem {
     @Override
     public void display() {
         System.out.println("AppSystem Inventory:");
-        System.out.format("%-20s %-20s %-10s %10s\n", "Name", "Description", "Price", "Available Quantity");
+        System.out.format("%-20s %-20s %-10s %-10s\n", "Name", "Description", "Price", "Available Quantity");
         for (String name : this.getItemCollection().keySet()) {
-            System.out.format("%-20s %-20s %-10s %-10s\n", name, this.getItemCollection().get(name).getItemDesc(), this.getItemCollection().get(name).getItemPrice(), this.getItemCollection().get(name).getAvailableQuantity());
+            Item item = this.getItemCollection().get(name);
+            System.out.format("%-20s %-20s %-10s %-10s\n", item.getItemName(), item.getItemDesc(), item.getItemPrice(), item.getAvailableQuantity());
         }
     }
 
@@ -38,7 +39,12 @@ public class AppSystem extends TheSystem {
         for (String name : this.getItemCollection().keySet()) {
             if (name.equals(item_name)) {
                 Item foundItem = this.getItemCollection().get(name);
-                foundItem.setAvailableQuantity(foundItem.getAvailableQuantity() - 1);
+                if (foundItem.getAvailableQuantity() == 0) {
+                    this.getItemCollection().remove(foundItem.getItemName());
+                } else {
+                    foundItem.setAvailableQuantity(foundItem.getAvailableQuantity() - 1);
+                    this.getItemCollection().put(foundItem.getItemName(), foundItem);
+                }
                 return foundItem;
             }
         }

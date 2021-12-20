@@ -70,7 +70,8 @@ public class MainEntryPoint {
                     System.out.println("Enter the name of the item");
                     reader.nextLine();
                     item_name = reader.nextLine();
-                    if (app.remove(item_name) != null) {
+                    Item item2 = app.remove(item_name);
+                    if (item2 != null) {
 
                         System.out.println(item_name + " was removed from the System");
                         if (cart.remove(item_name) != null) {

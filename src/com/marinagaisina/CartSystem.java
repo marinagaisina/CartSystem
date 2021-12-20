@@ -12,7 +12,6 @@ public class CartSystem extends TheSystem {
         double preTax = 0D;
         System.out.println("Cart:");
         System.out.format("%-20s %-20s %-10s %-10s %-10s\n", "Name", "Description", "Price", "Quantity", "Sub Total");
-        if (this.getItemCollection().size() == 0) return;
         for (String name : this.getItemCollection().keySet()) {
             Item item = this.getItemCollection().get(name);
             preTax += item.getItemPrice()*item.getQuantity();
